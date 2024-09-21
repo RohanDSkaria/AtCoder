@@ -14,8 +14,13 @@ template<typename T>ostream& operator<<(ostream& os, v<T>& v){for(auto& x : v)os
 
 void solve(){
     int n;cin>>n;
-    string s="3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679";
-    cout<<s.substr(0,n+2);
+    vi a(n);cin>>a;
+    v<vi> dp(n+1,vi(2,0));
+    for(int i=n-1; i>=0; i--){
+        dp[i][0]=max(dp[i+1][0], 2*a[i]+dp[i+1][1]);
+        dp[i][1]=max(dp[i+1][1], a[i]+dp[i+1][0]);
+    }
+    cout<<dp[0][1];
 }
 int32_t main(){
     IOS int t=1;

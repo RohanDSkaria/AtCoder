@@ -12,10 +12,24 @@ using namespace std;
 template<typename T>istream& operator>>(istream& is, v<T>& v){for(auto& x : v)is >> x;return is;}
 template<typename T>ostream& operator<<(ostream& os, v<T>& v){for(auto& x : v)os << x << ' ';return os;}
 
+const int m=998244353;
 void solve(){
-    int n;cin>>n;
-    string s="3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679";
-    cout<<s.substr(0,n+2);
+    int n,k;cin>>n>>k;
+    vi a(n+1),dp(n+1);
+    while(k--){
+        int x,y;cin>>x>>y;
+        a[x]+=1;
+        if(y!=n) a[y+1]-=1;
+    }
+    for(int i=1; i<=n; i++) a[i]+=a[i-1];
+    dp[1]=1;
+    for(int i=1; i<=n; i++){
+        int ans=0;
+        for(int j:a){
+            if(!j) continue;
+            if(i-j>0) ans=(ans+dp[i-j])
+        }
+    }
 }
 int32_t main(){
     IOS int t=1;
@@ -23,5 +37,6 @@ int32_t main(){
     while(t--) solve();
 }
 /*
-
+0  1  2  3   4  5  6
+   1  0  -1  1  0  0
 */

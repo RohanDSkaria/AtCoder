@@ -14,8 +14,18 @@ template<typename T>ostream& operator<<(ostream& os, v<T>& v){for(auto& x : v)os
 
 void solve(){
     int n;cin>>n;
-    string s="3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679";
-    cout<<s.substr(0,n+2);
+    v<vi> a(n,vi(n));
+    for(int i=0; i<n; i++){
+        for(int j=0; j<=i; j++) cin>>a[i][j];
+    }
+    // for(auto i:a) cout<<i<<endl;
+    int ans=1;
+    for(int i=0; i<n; i++){
+        if(ans>=i+1) ans=a[ans-1][i];
+        else ans=a[i][ans-1];
+        // deb(ans)
+    }
+    cout<<ans;
 }
 int32_t main(){
     IOS int t=1;

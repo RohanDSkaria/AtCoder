@@ -13,9 +13,29 @@ template<typename T>istream& operator>>(istream& is, v<T>& v){for(auto& x : v)is
 template<typename T>ostream& operator<<(ostream& os, v<T>& v){for(auto& x : v)os << x << ' ';return os;}
 
 void solve(){
-    int n;cin>>n;
-    string s="3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679";
-    cout<<s.substr(0,n+2);
+    int n,m;cin>>n>>m;
+    map<int,char> mp;
+    for(int i=0; i<m; i++){
+        int a;
+        char b;cin>>a>>b;
+        if(mp.count(a)){
+            if(mp[a]=='M'){
+                cout<<"No"<<endl;
+            }
+            else{
+                cout<<"Yes"<<endl;
+            }
+        }
+        else{
+            if(b=='M') mp[a]=b;
+            if(b=='M'){
+                cout<<"Yes"<<endl;
+            }
+            else{
+                cout<<"No"<<endl;
+            }
+        }
+    }
 }
 int32_t main(){
     IOS int t=1;

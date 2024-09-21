@@ -13,9 +13,21 @@ template<typename T>istream& operator>>(istream& is, v<T>& v){for(auto& x : v)is
 template<typename T>ostream& operator<<(ostream& os, v<T>& v){for(auto& x : v)os << x << ' ';return os;}
 
 void solve(){
-    int n;cin>>n;
-    string s="3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679";
-    cout<<s.substr(0,n+2);
+    int n,ans=0;cin>>n;
+    vi a,b;
+    while(n--){
+        int k;cin>>k;
+        char c;cin>>c;
+        if(c=='L') a.pb(k);
+        else b.pb(k);
+    }
+    if(a.size()){
+        for(int i=1; i<a.size(); i++) ans+=abs(a[i]-a[i-1]);
+    }
+    if(b.size()){
+        for(int i=1; i<b.size(); i++) ans+=abs(b[i]-b[i-1]);
+    }
+    cout<<ans<<endl;
 }
 int32_t main(){
     IOS int t=1;

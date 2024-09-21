@@ -14,8 +14,19 @@ template<typename T>ostream& operator<<(ostream& os, v<T>& v){for(auto& x : v)os
 
 void solve(){
     int n;cin>>n;
-    string s="3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679";
-    cout<<s.substr(0,n+2);
+    vi a(n),b;cin>>a;
+    for(int i=1; i<n; i++) b.pb(a[i]-a[i-1]);
+    int l=0,r=0,ans=0;
+    while(r<n-1){
+        if(b[l]==b[r]) r++;
+        else{
+            int k=r-l+1;
+            ans+=k*(k-1)/2;
+            l=r;
+        }
+    }
+    int k=r-l+1;
+    cout<<ans+n+(k*(k-1)/2)<<endl;
 }
 int32_t main(){
     IOS int t=1;
@@ -23,5 +34,6 @@ int32_t main(){
     while(t--) solve();
 }
 /*
+3 3 6
 
 */
