@@ -17,50 +17,38 @@ template<typename T>ostream& operator<<(ostream& os, v<v<T>>& v){os<<endl;for(au
 template<typename K,typename V>ostream& operator<<(ostream& os,map<K,V>& m){os<<endl;for(auto&[k,v]:m)os<<k<<" -> "<<v<<endl;return os;}
 template<typename T,typename... Args>void _print(string s,T v,Args... args){size_t c=s.find(',');cout<<s.substr(0,c)<<" = "<<v<<endl;if constexpr(sizeof...(args)>0){_print(s.substr(c+1),args...);}}
 
-// int ans;
-// void fn(vi &a){
-//     int n=a.size();
-//     v<map<int,int>> dp(n);
-//     // AC :
-//     // for(int i=1; i<n; i++){
-//     //     for(int j=0; j<i; j++){
-//     //         int diff=a[i]-a[j];
-//     //         dp[i][diff]=dp[j].count(diff)?dp[j][diff]+1:2;
-//     //         ans=max(ans,dp[i][diff]);
-//     //     }
-//     // }
-//     // TLE : (but if unordered_map then AC)
-//     // for(int i=1; i<n; i++){
-//     //     for(int j=0; j<i; j++){
-//     //         int diff=a[i]-a[j];
-//     //         dp[i][diff]=dp[j][diff]+1;
-//     //         ans=max(ans,dp[i][diff]);
-//     //     }
-//     // }
-//     // AC :
-//     for(int i=0; i<n; i++){
-//         for(int j=i+1; j<n; j++){
-//             int diff=a[j]-a[i];
-//             dp[j][diff]=dp[i][diff]+1;
-//             ans=max(ans,dp[j][diff]);
-//         }
-//     }
-// }
 void solve(){
+    v<vi> a(3,vi(3));cin>>a;
     int n;cin>>n;
-    vi a(n);cin>>a;
-    // ans=0;
-    // map<int,vi> m;
-    // for(int i=0; i<n; i++) m[a[i]].pb(i);
-    // for(auto i:m) fn(i.second);
-    // cout<<ans+1;
-    int ans=1;
-    for(int d=1; d<n; d++){
-        vi dp(n,1);
-        for(int j=d; j<n; j++) if(a[j]==a[j-d]) dp[j]=dp[j-d]+1;
-        ans=max(ans,*max_element(all(dp)));
+    set<int> b;
+    while(n--){
+        int c;cin>>c;
+        b.insert(c);
     }
-    cout<<ans;
+    for(auto &j:a){
+        for(int &i:j){
+            if(b.count(i)) i=0;
+        }
+    }
+    for(auto i:a){
+        if(accumulate(all(i),0ll)==0){
+            cout<<"Yes";
+            return;
+        }
+    }
+    for(int i=0; i<3; i++){
+        int sum=0;
+        for(auto j:a) sum+=j[i];
+        if(sum==0){
+            cout<<"Yes";
+            return;
+        }
+    }
+    if(a[0][0]+a[1][1]+a[2][2]==0 || a[1][1]+a[0][2]+a[2][0]==0){
+        cout<<"Yes";
+        return;
+    }
+    cout<<"No";
 }
 int32_t main(){
     IOS int t=1;

@@ -17,50 +17,33 @@ template<typename T>ostream& operator<<(ostream& os, v<v<T>>& v){os<<endl;for(au
 template<typename K,typename V>ostream& operator<<(ostream& os,map<K,V>& m){os<<endl;for(auto&[k,v]:m)os<<k<<" -> "<<v<<endl;return os;}
 template<typename T,typename... Args>void _print(string s,T v,Args... args){size_t c=s.find(',');cout<<s.substr(0,c)<<" = "<<v<<endl;if constexpr(sizeof...(args)>0){_print(s.substr(c+1),args...);}}
 
-// int ans;
-// void fn(vi &a){
-//     int n=a.size();
-//     v<map<int,int>> dp(n);
-//     // AC :
-//     // for(int i=1; i<n; i++){
-//     //     for(int j=0; j<i; j++){
-//     //         int diff=a[i]-a[j];
-//     //         dp[i][diff]=dp[j].count(diff)?dp[j][diff]+1:2;
-//     //         ans=max(ans,dp[i][diff]);
-//     //     }
-//     // }
-//     // TLE : (but if unordered_map then AC)
-//     // for(int i=1; i<n; i++){
-//     //     for(int j=0; j<i; j++){
-//     //         int diff=a[i]-a[j];
-//     //         dp[i][diff]=dp[j][diff]+1;
-//     //         ans=max(ans,dp[i][diff]);
-//     //     }
-//     // }
-//     // AC :
-//     for(int i=0; i<n; i++){
-//         for(int j=i+1; j<n; j++){
-//             int diff=a[j]-a[i];
-//             dp[j][diff]=dp[i][diff]+1;
-//             ans=max(ans,dp[j][diff]);
-//         }
-//     }
-// }
 void solve(){
-    int n;cin>>n;
-    vi a(n);cin>>a;
-    // ans=0;
-    // map<int,vi> m;
-    // for(int i=0; i<n; i++) m[a[i]].pb(i);
-    // for(auto i:m) fn(i.second);
-    // cout<<ans+1;
-    int ans=1;
-    for(int d=1; d<n; d++){
-        vi dp(n,1);
-        for(int j=d; j<n; j++) if(a[j]==a[j-d]) dp[j]=dp[j-d]+1;
-        ans=max(ans,*max_element(all(dp)));
+    int k;cin>>k;
+    string s,t;cin>>s>>t;
+    if(s.size()-t.size()==1){
+        int c=0;
+        for(int i=0,j=0; i<s.size(); i++){
+            if(s[i]==t[j]) j++;
+            else c++;
+        }
+        cout<<(c==1?"Yes":"No");
     }
-    cout<<ans;
+    else if(t.size()-s.size()==1){
+        int c=0;
+        for(int i=0,j=0; i<t.size(); i++){
+            if(t[i]==s[j]) j++;
+            else c++;
+        }
+        cout<<(c==1?"Yes":"No");
+    }
+    else if(t.size()==s.size()){
+        int c=0;
+        for(int i=0,j=0; i<t.size(); i++,j++){
+            if(t[i]!=s[j]) c++;
+        }
+        cout<<(c<2?"Yes":"No");
+    }
+    else cout<<"No";
 }
 int32_t main(){
     IOS int t=1;
