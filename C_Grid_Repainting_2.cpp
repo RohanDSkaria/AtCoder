@@ -17,17 +17,35 @@ template<typename T>ostream& operator<<(ostream& os, v<v<T>>& v){os<<endl;for(au
 template<typename K,typename V>ostream& operator<<(ostream& os,map<K,V>& m){os<<endl;for(auto&[k,v]:m)os<<k<<" -> "<<v<<endl;return os;}
 template<typename T,typename... Args>void _print(string s,T v,Args... args){size_t c=s.find(',');cout<<s.substr(0,c)<<" = "<<v<<endl;if constexpr(sizeof...(args)>0){_print(s.substr(c+1),args...);}}
 
-void solve(){
-    int n,q;cin>>n;
-    vi a(n),b(n);cin>>a>>b>>q;
-    vi pre(n+1);
-    for(int i=1; i<=n; i++) pre[i]=pre[i-1]+b[i-1];
-    while(q--){
-        int l,r;cin>>l>>r;
-        l=lower_bound(all(a),l)-a.begin();
-        r=upper_bound(all(a),r)-a.begin();
-        cout<<pre[r]-pre[l]<<endl;
+const int dx[]={1,0,-1,0};
+const int dy[]={0,-1,0,1};
+bool isk(v<string> &a, int i, int j){
+    return i>=0 && i<a.size() && j>=0 && j<a[0].size();
+}
+bool fn(v<string> &a, int i, int j){
+    for(int d=0; d<4; d++){
+        int ni=i+dx[d];
+        int nj=j+dy[d];
+        if(isk(a,ni,nj)){
+            if(a[ni][nj]=='#') return 1;
+        }
     }
+    return 0;
+}
+void solve(){
+    int n,m;cin>>n>>m;
+    v<string> a(n);cin>>a;
+    for(int i=0; i<n; i++){
+        for(int j=0; j<m; j++){
+            if(a[i][j]=='#'){
+                if(!fn(a,i,j)){
+                    cout<<"No";
+                    return;
+                }
+            }
+        }
+    }
+    cout<<"Yes";
 }
 int32_t main(){
     IOS int t=1;

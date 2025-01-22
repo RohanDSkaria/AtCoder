@@ -6,6 +6,7 @@ using namespace std;
 #define pb push_back
 #define v vector
 #define vi v<int>
+#define bl cout<<endl;
 #define all(a) a.begin(),a.end()
 #define rall(a) a.rbegin(),a.rend()
 #define deb(...) _print(#__VA_ARGS__, __VA_ARGS__);
@@ -17,17 +18,34 @@ template<typename T>ostream& operator<<(ostream& os, v<v<T>>& v){os<<endl;for(au
 template<typename K,typename V>ostream& operator<<(ostream& os,map<K,V>& m){os<<endl;for(auto&[k,v]:m)os<<k<<" -> "<<v<<endl;return os;}
 template<typename T,typename... Args>void _print(string s,T v,Args... args){size_t c=s.find(',');cout<<s.substr(0,c)<<" = "<<v<<endl;if constexpr(sizeof...(args)>0){_print(s.substr(c+1),args...);}}
 
-void solve(){
-    int n,q;cin>>n;
-    vi a(n),b(n);cin>>a>>b>>q;
-    vi pre(n+1);
-    for(int i=1; i<=n; i++) pre[i]=pre[i-1]+b[i-1];
-    while(q--){
-        int l,r;cin>>l>>r;
-        l=lower_bound(all(a),l)-a.begin();
-        r=upper_bound(all(a),r)-a.begin();
-        cout<<pre[r]-pre[l]<<endl;
+v<vi> isv;
+const int dx[]={1,1,0,-1,-1,-1,0,1};
+const int dy[]={0,-1,-1,-1,0,1,1,1};
+bool isk(v<string> &a, int i, int j){
+    return i>=0 && i<a.size() && j>=0 && j<a[0].size();
+}
+void dfs(v<string> &a, int x, int y){
+    isv[x][y]=1;
+    for(int d=0; d<8; d++){
+        int nx=x+dx[d];
+        int ny=y+dy[d];
+        if(isk(a,nx,ny) && !isv[nx][ny] && a[nx][ny]=='#') dfs(a,nx,ny);
     }
+}
+void solve(){
+    int n,m;cin>>n>>m;
+    v<string> a(n);cin>>a;
+    isv.assign(n,vi(m));
+    int ans=0;
+    for(int i=0; i<n; i++){
+        for(int j=0; j<m; j++){
+            if(!isv[i][j] && a[i][j]=='#'){
+                ans++;
+                dfs(a,i,j);
+            }
+        }
+    }
+    cout<<ans;
 }
 int32_t main(){
     IOS int t=1;

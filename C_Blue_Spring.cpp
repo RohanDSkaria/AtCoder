@@ -18,16 +18,16 @@ template<typename K,typename V>ostream& operator<<(ostream& os,map<K,V>& m){os<<
 template<typename T,typename... Args>void _print(string s,T v,Args... args){size_t c=s.find(',');cout<<s.substr(0,c)<<" = "<<v<<endl;if constexpr(sizeof...(args)>0){_print(s.substr(c+1),args...);}}
 
 void solve(){
-    int n,q;cin>>n;
-    vi a(n),b(n);cin>>a>>b>>q;
-    vi pre(n+1);
-    for(int i=1; i<=n; i++) pre[i]=pre[i-1]+b[i-1];
-    while(q--){
-        int l,r;cin>>l>>r;
-        l=lower_bound(all(a),l)-a.begin();
-        r=upper_bound(all(a),r)-a.begin();
-        cout<<pre[r]-pre[l]<<endl;
+    int n,d,p;cin>>n>>d>>p;
+    vi a(n);cin>>a;
+    sort(rall(a));
+    int ans=0;
+    for(int i=0; i<n; i+=d){
+        int sum=0;
+        for(int j=i; j<min(n,i+d); j++) sum+=a[j];
+        ans+=(sum>p)?p:sum;
     }
+    cout<<ans;
 }
 int32_t main(){
     IOS int t=1;

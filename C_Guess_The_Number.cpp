@@ -6,6 +6,7 @@ using namespace std;
 #define pb push_back
 #define v vector
 #define vi v<int>
+#define bl cout<<endl;
 #define all(a) a.begin(),a.end()
 #define rall(a) a.rbegin(),a.rend()
 #define deb(...) _print(#__VA_ARGS__, __VA_ARGS__);
@@ -18,16 +19,23 @@ template<typename K,typename V>ostream& operator<<(ostream& os,map<K,V>& m){os<<
 template<typename T,typename... Args>void _print(string s,T v,Args... args){size_t c=s.find(',');cout<<s.substr(0,c)<<" = "<<v<<endl;if constexpr(sizeof...(args)>0){_print(s.substr(c+1),args...);}}
 
 void solve(){
-    int n,q;cin>>n;
-    vi a(n),b(n);cin>>a>>b>>q;
-    vi pre(n+1);
-    for(int i=1; i<=n; i++) pre[i]=pre[i-1]+b[i-1];
-    while(q--){
-        int l,r;cin>>l>>r;
-        l=lower_bound(all(a),l)-a.begin();
-        r=upper_bound(all(a),r)-a.begin();
-        cout<<pre[r]-pre[l]<<endl;
+    int n,m;cin>>n>>m;
+    string s(n,'a');
+    bool ya=1;
+    while(m--){
+        int k,d;cin>>k>>d;
+        k--;
+        if(s[k]=='a') s[k]=d+'0';
+        else if(s[k]!=d+'0') ya=0;
     }
+    if(s[0]=='0' && n>1) ya=0;
+    if(!ya){
+        cout<<-1;
+        return;
+    }
+    for(auto &c:s) if(c=='a') c='0';
+    if(n>1 && s[0]=='0') s[0]='1';
+    cout<<s;
 }
 int32_t main(){
     IOS int t=1;

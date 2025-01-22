@@ -6,6 +6,7 @@ using namespace std;
 #define pb push_back
 #define v vector
 #define vi v<int>
+#define bl cout<<endl;
 #define all(a) a.begin(),a.end()
 #define rall(a) a.rbegin(),a.rend()
 #define deb(...) _print(#__VA_ARGS__, __VA_ARGS__);
@@ -18,15 +19,24 @@ template<typename K,typename V>ostream& operator<<(ostream& os,map<K,V>& m){os<<
 template<typename T,typename... Args>void _print(string s,T v,Args... args){size_t c=s.find(',');cout<<s.substr(0,c)<<" = "<<v<<endl;if constexpr(sizeof...(args)>0){_print(s.substr(c+1),args...);}}
 
 void solve(){
-    int n,q;cin>>n;
-    vi a(n),b(n);cin>>a>>b>>q;
-    vi pre(n+1);
-    for(int i=1; i<=n; i++) pre[i]=pre[i-1]+b[i-1];
-    while(q--){
-        int l,r;cin>>l>>r;
-        l=lower_bound(all(a),l)-a.begin();
-        r=upper_bound(all(a),r)-a.begin();
-        cout<<pre[r]-pre[l]<<endl;
+    int n,m;cin>>n>>m;
+    v<string> a(n);cin>>a;
+    set<int> r,c;
+    for(int i=0; i<n; i++){
+        if(count(all(a[i]),'.')==m) r.insert(i);
+    }
+    for(int i=0; i<m; i++){
+        int cnt=0;
+        for(int j=0; j<n; j++) cnt+=a[j][i]=='.';
+        if(cnt==n) c.insert(i);
+    }
+    for(int i=0; i<n; i++){
+        if(r.count(i)) continue;
+        for(int j=0; j<m; j++){
+            if(c.count(j)) continue;
+            cout<<a[i][j];
+        }
+        cout<<endl;
     }
 }
 int32_t main(){

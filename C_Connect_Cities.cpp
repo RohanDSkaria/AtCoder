@@ -9,7 +9,8 @@ using namespace std;
 #define all(a) a.begin(),a.end()
 #define rall(a) a.rbegin(),a.rend()
 #define deb(...) _print(#__VA_ARGS__, __VA_ARGS__);
-template<typename F,typename S>ostream& operator<<(ostream& os,pair<F,S>& p){os<<"{"<<p.first<<","<<p.second<<"}";return os;}
+template<typename F,typename S>ostream& operator<<(ostream& os,const pair<F,S>& p){return os<<"{"<<p.first<<","<<p.second<<"}";}
+template<typename F,typename S>istream& operator>>(istream& is,pair<F,S>& p){return is>>p.first>>p.second;}
 template<typename T>istream& operator>>(istream& is, v<T>& v){for(auto&x:v)is>>x;return is;}
 template<typename T>ostream& operator<<(ostream& os, v<T>& v){for(auto&x:v)os<<x<<' ';return os;}
 template<typename T>ostream& operator<<(ostream& os, set<T>& s){for(auto&x:s)os<<x<<' ';return os;}
@@ -17,17 +18,33 @@ template<typename T>ostream& operator<<(ostream& os, v<v<T>>& v){os<<endl;for(au
 template<typename K,typename V>ostream& operator<<(ostream& os,map<K,V>& m){os<<endl;for(auto&[k,v]:m)os<<k<<" -> "<<v<<endl;return os;}
 template<typename T,typename... Args>void _print(string s,T v,Args... args){size_t c=s.find(',');cout<<s.substr(0,c)<<" = "<<v<<endl;if constexpr(sizeof...(args)>0){_print(s.substr(c+1),args...);}}
 
-void solve(){
-    int n,q;cin>>n;
-    vi a(n),b(n);cin>>a>>b>>q;
-    vi pre(n+1);
-    for(int i=1; i<=n; i++) pre[i]=pre[i-1]+b[i-1];
-    while(q--){
-        int l,r;cin>>l>>r;
-        l=lower_bound(all(a),l)-a.begin();
-        r=upper_bound(all(a),r)-a.begin();
-        cout<<pre[r]-pre[l]<<endl;
+struct DSU{
+    vi p,s;
+    DSU(int n){
+        p.assign(n,0);s.assign(n,1);
+        iota(all(p),0);
     }
+    int get(int a){
+        return (p[a]==a)?a:p[a]=get(p[a]);
+    }
+    void uni(int x, int y){
+        x=get(x);y=get(y);
+        if(s[x]<s[y]) swap(x,y);
+        p[y]=x;
+        s[x]+=s[y];
+    }
+};
+void solve(){
+    int n,m;cin>>n>>m;
+    DSU dsu(n+1);
+    while(m--){
+        int a,b;cin>>a>>b;
+        if(dsu.get(a)!=dsu.get(b)){
+            n--;
+            dsu.uni(a,b);
+        }
+    }
+    cout<<n-1;
 }
 int32_t main(){
     IOS int t=1;

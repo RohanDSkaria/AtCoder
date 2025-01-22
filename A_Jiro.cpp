@@ -13,11 +13,17 @@ template<typename T>istream& operator>>(istream& is, v<T>& v){for(auto& x : v)is
 template<typename T>ostream& operator<<(ostream& os, v<T>& v){for(auto& x : v)os << x << ' ';return os;}
 
 void solve(){
-    char ab,ac,bc;cin>>ab>>ac>>bc;
-    if((ab=='<' && ac=='<' && bc=='<') || (bc=='>' && ac=='>' && ab=='>')) cout<<"B";
-    else if((ab=='>' && bc=='<' && ac=='<') || (ab=='<' && bc=='>' && ac=='>')) cout<<"A";
-    else if((ab=='<' && bc=='>' && ac=='<') || (ab=='>' && bc=='<' && ac=='>')) cout<<"C";
-    bl
+    v<char> a(3);cin>>a;
+    vi b(3);
+    if(a[0]=='<') b[1]++;
+    else b[0]++;
+    if(a[1]=='<') b[2]++;
+    else b[0]++;
+    if(a[2]=='<') b[2]++;
+    else b[1]++;
+    for(int i=0; i<3; i++){
+        if(b[i]==1) cout<<char('A'+i);
+    }
 }
 int32_t main(){
     IOS int t=1;
@@ -25,12 +31,5 @@ int32_t main(){
     while(t--) solve();
 }
 /*
-a b c
-c b a
 
-b a c
-c a b
-
-a c b
-b c a
 */

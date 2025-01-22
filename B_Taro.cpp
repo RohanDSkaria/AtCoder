@@ -14,27 +14,15 @@ template<typename T>ostream& operator<<(ostream& os, v<T>& v){for(auto& x : v)os
 
 void solve(){
     int n,m;cin>>n>>m;
-    map<int,char> mp;
-    for(int i=0; i<m; i++){
+    vi f(n+1);
+    while(m--){
         int a;
         char b;cin>>a>>b;
-        if(mp.count(a)){
-            if(mp[a]=='M'){
-                cout<<"No"<<endl;
-            }
-            else{
-                cout<<"Yes"<<endl;
-            }
+        if(!f[a] && b=='M'){
+            cout<<"Yes"<<endl;
+            f[a]=1;
         }
-        else{
-            if(b=='M') mp[a]=b;
-            if(b=='M'){
-                cout<<"Yes"<<endl;
-            }
-            else{
-                cout<<"No"<<endl;
-            }
-        }
+        else cout<<"No"<<endl;
     }
 }
 int32_t main(){

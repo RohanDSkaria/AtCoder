@@ -6,6 +6,7 @@ using namespace std;
 #define pb push_back
 #define v vector
 #define vi v<int>
+#define bl cout<<endl;
 #define all(a) a.begin(),a.end()
 #define rall(a) a.rbegin(),a.rend()
 #define deb(...) _print(#__VA_ARGS__, __VA_ARGS__);
@@ -18,16 +19,29 @@ template<typename K,typename V>ostream& operator<<(ostream& os,map<K,V>& m){os<<
 template<typename T,typename... Args>void _print(string s,T v,Args... args){size_t c=s.find(',');cout<<s.substr(0,c)<<" = "<<v<<endl;if constexpr(sizeof...(args)>0){_print(s.substr(c+1),args...);}}
 
 void solve(){
-    int n,q;cin>>n;
-    vi a(n),b(n);cin>>a>>b>>q;
-    vi pre(n+1);
-    for(int i=1; i<=n; i++) pre[i]=pre[i-1]+b[i-1];
-    while(q--){
-        int l,r;cin>>l>>r;
-        l=lower_bound(all(a),l)-a.begin();
-        r=upper_bound(all(a),r)-a.begin();
-        cout<<pre[r]-pre[l]<<endl;
+    int n;cin>>n;
+    v<vi> a(n,vi(2));cin>>a;
+    int l=0,r=0;
+    for(auto i:a) l+=i[0],r+=i[1];
+    if(0>r || 0<l){
+        cout<<"No";
+        return;
     }
+    cout<<"Yes"<<endl;
+    vi b(n);
+    for(int i=0; i<n; i++) b[i]=a[i][0];
+    for(int i=0; l && i<n; i++){
+        int d=a[i][1]-a[i][0];
+        if(l+d<0){
+            l+=d;
+            b[i]=a[i][1];
+        }
+        else{
+            b[i]+=-l;
+            l=0;
+        }
+    }
+    cout<<b;
 }
 int32_t main(){
     IOS int t=1;

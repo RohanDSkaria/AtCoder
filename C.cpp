@@ -6,6 +6,7 @@ using namespace std;
 #define pb push_back
 #define v vector
 #define vi v<int>
+#define bl cout<<endl;
 #define all(a) a.begin(),a.end()
 #define rall(a) a.rbegin(),a.rend()
 #define deb(...) _print(#__VA_ARGS__, __VA_ARGS__);
@@ -18,16 +19,37 @@ template<typename K,typename V>ostream& operator<<(ostream& os,map<K,V>& m){os<<
 template<typename T,typename... Args>void _print(string s,T v,Args... args){size_t c=s.find(',');cout<<s.substr(0,c)<<" = "<<v<<endl;if constexpr(sizeof...(args)>0){_print(s.substr(c+1),args...);}}
 
 void solve(){
-    int n,q;cin>>n;
-    vi a(n),b(n);cin>>a>>b>>q;
-    vi pre(n+1);
-    for(int i=1; i<=n; i++) pre[i]=pre[i-1]+b[i-1];
-    while(q--){
-        int l,r;cin>>l>>r;
-        l=lower_bound(all(a),l)-a.begin();
-        r=upper_bound(all(a),r)-a.begin();
-        cout<<pre[r]-pre[l]<<endl;
+    int n;cin>>n;
+    vi a(n);cin>>a;
+    map<int,int> m,mp;
+    int v1=-1,v2=-1,v3=-1,v4=-1;
+    for(int i=0,f1=0,f2=0; i<n; i+=2){
+        m[a[i]]++;
+        if(m[a[i]]>f1){
+            f1=m[a[i]];
+            v1=a[i];
+        }
+        else if(m[a[i]]>f2){
+            f2=m[a[i]];
+            v4=a[i];
+        }
     }
+    for(int i=1,f1=0,f2=0; i<n; i+=2){
+        mp[a[i]]++;
+        if(mp[a[i]]>f1){
+            f1=mp[a[i]];
+            v2=a[i];
+        }
+        else if(mp[a[i]]>f2){
+            f2=mp[a[i]];
+            v3=a[i];
+        }
+    }
+    int ans=0;
+    if(v1!=v2) ans=n-m[v1]-mp[v2];
+    else if(v3==-1 || v4==-1) ans=n/2;
+    else ans=n-max(m[v1]+mp[v3],m[v4]+mp[v2]);
+    cout<<ans;
 }
 int32_t main(){
     IOS int t=1;

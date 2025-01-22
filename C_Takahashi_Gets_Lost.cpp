@@ -17,17 +17,28 @@ template<typename T>ostream& operator<<(ostream& os, v<v<T>>& v){os<<endl;for(au
 template<typename K,typename V>ostream& operator<<(ostream& os,map<K,V>& m){os<<endl;for(auto&[k,v]:m)os<<k<<" -> "<<v<<endl;return os;}
 template<typename T,typename... Args>void _print(string s,T v,Args... args){size_t c=s.find(',');cout<<s.substr(0,c)<<" = "<<v<<endl;if constexpr(sizeof...(args)>0){_print(s.substr(c+1),args...);}}
 
-void solve(){
-    int n,q;cin>>n;
-    vi a(n),b(n);cin>>a>>b>>q;
-    vi pre(n+1);
-    for(int i=1; i<=n; i++) pre[i]=pre[i-1]+b[i-1];
-    while(q--){
-        int l,r;cin>>l>>r;
-        l=lower_bound(all(a),l)-a.begin();
-        r=upper_bound(all(a),r)-a.begin();
-        cout<<pre[r]-pre[l]<<endl;
+int fn(v<string> &a, int i, int j, string &t){
+    for(auto c:t){
+        if(c=='L') j--;
+        else if(c=='U') i--;
+        else if(c=='R') j++;
+        else i++;
+        if(a[i][j]=='#') return 0;
     }
+    return 1;
+}
+void solve(){
+    int n,m,k;cin>>n>>m>>k;
+    string t;cin>>t;
+    v<string> a(n);cin>>a;
+    int ans=0;
+    for(int i=1; i<n-1; i++){
+        for(int j=1; j<m-1; j++){
+            if(a[i][j]=='#') continue;
+            ans+=fn(a,i,j,t);
+        }
+    }
+    cout<<ans;
 }
 int32_t main(){
     IOS int t=1;
