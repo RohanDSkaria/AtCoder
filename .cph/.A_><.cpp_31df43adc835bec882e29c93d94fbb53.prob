@@ -1,0 +1,1 @@
+{"name":"Local: A_><","url":"/mnt/windows/Coding/AtCoder/A_><.cpp","tests":[{"id":1739729115145,"input":"<>>><<><<<<<>>><","output":"28"},{"id":1739730296924,"input":"<>>","output":"3"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/mnt/windows/Coding/AtCoder/A_><.cpp","group":"local","local":true}

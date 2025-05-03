@@ -20,7 +20,19 @@ template<typename T,typename... Args>void _print(string s,T v,Args... args){size
 void solve(){
     int t,n;cin>>t>>n;
     double k=(100+t)/100.0;
-    for(int i=1; i<100; i++) cout<<(int)(k*i)<<endl;
+    v<double> a;
+    double val=k-(int)(k);
+    for(int i=0; i<101; i++){
+        a.pb(val); 
+        if(val==0) break;
+        val=((i+2)*k)-(int)(k*(i+2));
+    }
+    deb(a)
+    int m=a.size();
+    vi b(m);
+    for(int i=1; i<m; i++) if(a[i]<a[i-1]) b[i]=1;
+    int c=accumulate(all(b),0ll);
+    
 }
 int32_t main(){
     IOS int t=1;
