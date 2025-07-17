@@ -19,12 +19,8 @@ template<typename T,typename... Args>void _print(string s,T v,Args... args){size
 
 void solve(){
     int n;cin>>n;
-    for(int i=0; i<n; i++){
-        for(int j=0; j<n; j++){
-            cout<<(min({i,j,n-1-i,n-1-j})&1?'.':'#');
-        }
-        cout<<'\n';
-    }
+    string s=to_string(n+99999);
+    cout<<s[0]<<s.substr(0,4)<<s.substr(3,3)<<s[4]<<'\n';
 }
 int32_t main(){
     IOS int t=1;
