@@ -17,24 +17,21 @@ template<typename T>ostream& operator<<(ostream& os, v<v<T>>& v){os<<'\n';for(au
 template<typename K,typename V>ostream& operator<<(ostream& os,map<K,V>& m){os<<'\n';for(auto&[k,v]:m)os<<k<<" -> "<<v<<'\n';return os;}
 template<typename T,typename... Args>void _print(string s,T v,Args... args){size_t c=s.find(',');cout<<s.substr(0,c)<<" = "<<v<<'\n';if constexpr(sizeof...(args)>0){_print(s.substr(c+1),args...);}}
 
-bool solve(){
-	string s,t;cin>>s>>t;
+void solve(){
+	string s,a,b;cin>>s;
+	a=b=s;
 	int n=s.size();
-	for(int w=1; w<n; w++){
-	    v<string> a;
-	    for(int i=0; i<n; i+=w) a.pb(s.substr(i,w));
-	    for(int c=0; c<w; c++){
-	        string k;
-	        for(string &i:a) if(i.size()>c) k+=i[c];
-	        if(k==t) return 1;
-	    }
+	for(int i=1; i<n; i++){
+	    string t=s.substr(i)+s.substr(0,i);
+	    a=min(a,t);
+	    b=max(b,t);
 	}
-	return 0;
+	cout<<a<<'\n'<<b<<'\n';
 }
 int32_t main(){
-	IOS int t=1;
-	// cin>>t;
-	while(t--) cout<<(solve()?"Yes\n":"No\n");
+    IOS int t=1;
+    // cin>>t;
+    while(t--) solve();
 }
 /*
 
