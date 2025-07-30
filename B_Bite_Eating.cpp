@@ -3,10 +3,11 @@ using namespace std;
 #define int long long
 
 void solve(){
-	int n;cin>>n;
-	int k=ceil(n/1.08);
-	if(n==(int)(k*1.08)) cout<<k<<'\n';
-	else cout<<":(\n";
+    int n,l;cin>>n>>l;
+    int r=n+l-1,k=0;
+    if(r<0) k=r;
+    else if(l>0) k=l;
+    cout<<(r+l)*(r+1-l)/2-k<<'\n';
 }
 int32_t main(){
     ios::sync_with_stdio(0);cin.tie(nullptr);
@@ -14,3 +15,6 @@ int32_t main(){
     // cin>>t;
     while(t--) solve();
 }
+/*
+
+*/

@@ -3,14 +3,18 @@ using namespace std;
 #define int long long
 
 void solve(){
-	int n;cin>>n;
-	int k=ceil(n/1.08);
-	if(n==(int)(k*1.08)) cout<<k<<'\n';
-	else cout<<":(\n";
+    int n,m;cin>>n>>m;
+    vector<int> a(n),b(n);
+    for(int &i:a) cin>>i;
+    for(int &i:b) cin>>i;
+    
 }
 int32_t main(){
     ios::sync_with_stdio(0);cin.tie(nullptr);
     int t=1;
-    // cin>>t;
+    cin>>t;
     while(t--) solve();
 }
+/*
+
+*/
