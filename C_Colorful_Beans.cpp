@@ -4,13 +4,13 @@ using namespace std;
 
 void solve(){
 	int n;cin>>n;
-	vector<int> a(n-1);
-	for(int &i:a) cin>>i;
-	int ans=1,i=n-2;
-	while(a[i]!=1){
-	    ans++;
-	    i=a[i]-2;
+	map<int,int> m;
+	while(n--){
+	    int a,b;cin>>a>>b;
+        m[b]=m.count(b)?min(m[b],a):a;
 	}
+	int ans=0;
+	for(auto &[x,y]:m) ans=max(ans,y);
 	cout<<ans<<'\n';
 }
 int32_t main(){

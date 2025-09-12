@@ -4,14 +4,15 @@ using namespace std;
 
 void solve(){
 	int n;cin>>n;
-	vector<int> a(n-1);
-	for(int &i:a) cin>>i;
-	int ans=1,i=n-2;
-	while(a[i]!=1){
-	    ans++;
-	    i=a[i]-2;
+	string s;cin>>s;
+	for(int i=1; i<n; i++){
+	    int ans=0;
+	    for(int j=i; j<n; j++){
+	        if(s[j]!=s[j-i]) ans=j-i+1;
+	        else break;
+	    }
+	    cout<<ans<<'\n';
 	}
-	cout<<ans<<'\n';
 }
 int32_t main(){
     ios::sync_with_stdio(0);cin.tie(nullptr);
@@ -19,6 +20,3 @@ int32_t main(){
     // cin>>t;
     while(t--) solve();
 }
-/*
-
-*/

@@ -4,14 +4,10 @@ using namespace std;
 
 void solve(){
 	int n;cin>>n;
-	vector<int> a(n-1);
+	vector<int> a(n),b(n);
 	for(int &i:a) cin>>i;
-	int ans=1,i=n-2;
-	while(a[i]!=1){
-	    ans++;
-	    i=a[i]-2;
-	}
-	cout<<ans<<'\n';
+	for(int &i:b) cin>>i;
+    
 }
 int32_t main(){
     ios::sync_with_stdio(0);cin.tie(nullptr);
