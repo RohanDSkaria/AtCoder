@@ -3,16 +3,21 @@ using namespace std;
 #define int long long
 
 void solve(){
-	int n,k,x;cin>>n>>k>>x;
-	vector<int> a(n);
-	for(int& i:a){
-	    cin>>i;
-	    int t=min(k,i/x);
-	    i-=t*x;
-	    k-=t;
+	int n;cin>>n;
+	string s;
+	map<string,int> m;
+	while(n--){
+	    cin>>s;
+	    m[s]++;
 	}
-	sort(a.begin(),a.end());
-	cout<<accumulate(a.begin(),a.end()-min(n,k),0ll)<<'\n';
+	cin>>n;
+	while(n--){
+	    cin>>s;
+	    m[s]--;
+	}
+	int ans=0;
+	for(auto& [x,y]:m) ans=max(ans,y);
+	cout<<ans<<'\n';
 }
 int32_t main(){
     ios::sync_with_stdio(0);cin.tie(nullptr);
