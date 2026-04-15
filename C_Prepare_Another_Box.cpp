@@ -1,40 +1,35 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define IOS ios::sync_with_stdio(0);cin.tie(nullptr);cout.tie(nullptr);
-#define endl '\n'
 #define int long long
-#define pb push_back
-#define v vector
-#define vi v<int>
-#define bl cout<<endl;
-#define all(a) a.begin(),a.end()
-#define deb(x) cout<<#x<<" = "<<x<<endl;
-template<typename T>istream& operator>>(istream& is, v<T>& v){for(auto& x : v)is >> x;return is;}
-template<typename T>ostream& operator<<(ostream& os, v<T>& v){for(auto& x : v)os << x << ' ';return os;}
 
 void solve(){
-    int n;cin>>n;
-    vi a(n),b(n-1);cin>>a>>b;
-    sort(all(a));
-    sort(all(b));
-    // deb(a)deb(b)
-    int ans=a[0],ya=0;
-    for(int i=n-1,j=n-2; i>=0 && j>=0;){
-        if(a[i]>b[j]){
-            if(ya){
-                cout<<-1<<endl;
-                return;
-            }
-            ans=a[i];
-            ya=1;
-            i--;
-        }
-        else i--,j--;
-    }
-    cout<<ans<<endl;
+	int n;cin>>n;
+	vector<int> a(n),b(n-1);
+	for(int& i:a) cin>>i;
+	for(int& i:b) cin>>i;
+	sort(a.begin(),a.end());
+	sort(b.begin(),b.end());
+	int ans=a[0],c=0;
+	for(int i=n-1,j=n-2; j>=0 && i>=0; i--,j--){
+	    if(a[i]>b[j]) c++,ans=a[i],j++;
+	}
+	if(c>1) cout<<"-1\n";
+	else cout<<ans<<'\n';
+	// sort(a.rbegin(),a.rend());
+	// sort(b.rbegin(),b.rend());
+    // int i=0;
+    // while(i<n-1 && a[i]<=b[i]) i++;
+    // for(int j=i; j<n-1; j++){
+    //     if(a[j+1]>b[j]){
+    //         cout<<"-1\n";
+    //         return;
+    //     }
+    // }
+    // cout<<a[i]<<'\n';
 }
 int32_t main(){
-    IOS int t=1;
+    ios::sync_with_stdio(0);cin.tie(nullptr);
+    int t=1;
     // cin>>t;
     while(t--) solve();
 }
