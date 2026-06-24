@@ -1,31 +1,25 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define endl '\n'
-#define IOS ios::sync_with_stdio(false);cin.tie(nullptr);cout.tie(nullptr);
 #define int long long
-#define pb(a) push_back(a)
-#define v vector
-#define vi v<int>
-#define bl cout<<endl
-#define all(a) a.begin(),a.end()
-#define deb(x) cout << #x << " : " << x << endl;
-template<typename T>istream& operator>>(istream& is, v<T>& v){for(auto& x : v)is >> x;return is;}
-template<typename T>ostream& operator<<(ostream& os, v<T>& v){for(auto& x : v)os << x << ' ';return os;}
 
 void solve(){
-    int n,t=0;cin>>n;
-    vi a(n);cin>>a;
-    for(int i:a){
-        int k=i/5;
-        t+=(3*k)+(i%5);
-        if(i%5==4) t--;
+	int n,ans=0;cin>>n;
+	while(cin>>n){
+        ans+=(n/5)*3;
+        n%=5;
+        while(n>0){
+            ans++;
+            ans%3?n--:n-=3;
+        }
     }
-    cout<<t<<endl;
+    cout<<ans<<'\n';
 }
 int32_t main(){
-    IOS int t=1;
+    ios::sync_with_stdio(0);cin.tie(nullptr);
+    int t=1;
     // cin>>t;
-    while   (t--){
-        solve();
-    }
+    while(t--) solve();
 }
+/*
+
+*/

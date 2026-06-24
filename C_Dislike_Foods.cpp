@@ -3,30 +3,27 @@ using namespace std;
 #define int long long
 
 void solve(){
-    int n,m;cin>>n>>m;
-    vector<set<int>> in(m);
-    for(auto& s:in){
-        int k,x;cin>>k;
-        while(k--){
-            cin>>x;
-            s.insert(x);
-        }
-    }
-    vector<int> b(n),ans(n);
-    for(int& i:b) cin>>i;
-    int k=m;
-    set<int> t;
-    for(int i=0; i<m; i++) t.insert(i);
-    for(int i=n-1; i>=0; i--){
-        ans[i]=k;
-        set<int> tt;
-        for(int j:t){
-            if(in[j].count(b[i])) tt.insert(j);
-        }
-        k-=tt.size();
-        for(int j:tt) t.erase(j);
-    }
-    for(int i:ans) cout<<i<<'\n';
+	int n,m;cin>>n>>m;
+	map<int,vector<int>> mp;
+	for(int i=0,k,j; i<m; i++){
+	    cin>>k;
+	    while(k--){
+	        cin>>j;
+	        mp[j].push_back(i);
+	    }
+	}
+	vector<int> b(n),vis(m);
+	for(int& i:b) cin>>i;
+	for(int i=n-1,c=m; i>=0; i--){
+        vector<int>& t=mp[b[i]];
+        b[i]=c;
+	    for(int j:t){
+            if(vis[j]) continue;
+	        vis[j]=1;
+	        c--;
+	    }
+	}
+	for(int i:b) cout<<i<<'\n';
 }
 int32_t main(){
     ios::sync_with_stdio(0);cin.tie(nullptr);

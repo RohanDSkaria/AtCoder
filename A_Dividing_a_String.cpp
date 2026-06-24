@@ -4,24 +4,15 @@ using namespace std;
 
 void solve(){
 	string s;cin>>s;
-	int ans=1,n=s.size();
-	bool ya=1;
-    char p=s[0];
-	for(int i=1; i<n; i++){
-        bool k=0;
-	    if(s[i]==p){
-            cout<<i<<'\n';
-	        if(ya){
-                k=1;
-                i++;
-            }
-	        ya^=1;
-	    }
-        else ya=1;
-	    ans++;
-        p=s[i-k];
-	}
-	cout<<ans<<'\n';
+    int n=s.size();
+    vector<vector<int>> ans(n,vector<int>(2,1));
+    for(int i=1; i<n; i++){
+        ans[i][0]=ans[i-1][1]+1;
+        if(s[i]!=s[i-1]) ans[i][0]=max(ans[i][0],ans[i-1][0]+1);
+        if(i==1) continue;
+        ans[i][1]=ans[i-2][0]+1;
+    }
+    cout<<max(ans[n-1][0],ans[n-1][1])<<'\n';
 }
 int32_t main(){
     ios::sync_with_stdio(0);cin.tie(nullptr);
